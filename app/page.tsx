@@ -40,12 +40,20 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center h-screen bg-gray-900">
       <h1 className="text-white text-4xl font-bold mb-10">Infinite Love</h1>
 
+      <div className="mb-10">
+        <p className="text-white text-xl font-bold">Stream</p>
+
+        <audio className="w-64 my-5 rounded-lg shadow-md" controls>
+          <source src="/api/stream" type="audio/mpeg" />
+        </audio>
+      </div>
+
       {audioFiles.map((file) => (
         <div key={file} className="mb-10">
           <p className="text-white text-xl font-bold">{file}</p>
 
           <audio className="w-64 my-5 rounded-lg shadow-md" controls>
-            <source src={file} type="audio/mpeg" />
+            <source src={`/audio/${file}`} type="audio/mpeg" />
           </audio>
         </div>
       ))}

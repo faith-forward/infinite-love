@@ -65,7 +65,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
   // Generate random filename
   const filename = Math.random().toString(36).substring(7) + ".mp3";
 
-  fs.writeFile(`./public/${filename}`, Buffer.from(audioData), (err) => {
+  fs.writeFile(`./public/audio/${filename}`, Buffer.from(audioData), (err) => {
     if (err) throw err;
     console.log("The file has been saved!");
   });
@@ -77,7 +77,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("Handling GET request");
 
-  const files = fs.readdirSync("./public");
+  const files = fs.readdirSync("./public/audio");
   const mp3Files = files.filter((file) => file.endsWith(".mp3"));
 
   res.status(200).json({ mp3Files });
@@ -95,6 +95,6 @@ export default async function handler(
     case "POST":
       return handlePost(req, res);
     default:
-      res.status(500).json({ error: "Method not supported" });
+      res.status(405).end();
   }
 }
